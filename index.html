@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Joey — the AI SDR your funnel is missing</title>
+<meta name="description" content="Joey is an AI SDR that engages every lead in seconds, works your no-shows, and books qualified calls straight to your calendar. Convert the leads you already paid for." />
+<meta name="theme-color" content="#0B111E" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Joey — the AI SDR your funnel is missing" />
+<meta property="og:description" content="Convert the leads you already paid for. Joey engages, qualifies, and books, 24/7, in your voice." />
+<meta property="og:url" content="https://joeysdr.com/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0B111E; --bg2:#0E1626; --panel:#111C30; --line:rgba(255,255,255,.09);
+    --ink:#F3F6FC; --soft:#C2CCDC; --mute:#7B8AA3; --accent:#FF8A3D; --accent2:#F5853F;
+    --display:'Space Grotesk',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  a{color:inherit}
+  /* decorative grid + glow */
+  body::before{content:"";position:fixed;inset:0;z-index:-2;
+    background-image:linear-gradient(to right,var(--line) 1px,transparent 1px),linear-gradient(to bottom,var(--line) 1px,transparent 1px);
+    background-size:64px 64px;-webkit-mask-image:radial-gradient(circle at 70% 0,#000,transparent 70%);mask-image:radial-gradient(circle at 70% 0,#000,transparent 70%);opacity:.5}
+  body::after{content:"";position:fixed;top:-200px;right:-120px;width:680px;height:680px;z-index:-2;
+    background:radial-gradient(circle,rgba(255,138,61,.16),transparent 62%);pointer-events:none}
+  .mono{font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;font-size:13px}
+  .accent{color:var(--accent)}
+  /* nav */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+  .brand{font-family:var(--mono);letter-spacing:.18em;font-size:15px;color:var(--soft);display:flex;align-items:center;gap:10px}
+  .brand b{color:var(--ink)}
+  .dot{color:var(--accent)}
+  .btn{display:inline-block;font-family:var(--display);font-weight:700;font-size:15px;text-decoration:none;
+    background:var(--accent);color:#0B111E;padding:13px 22px;border-radius:30px;transition:transform .15s,background .15s}
+  .btn:hover{background:var(--accent2);transform:translateY(-1px)}
+  .btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn--ghost:hover{border-color:var(--accent);background:transparent}
+  /* hero */
+  .hero{padding:70px 0 30px}
+  .eyebrow{font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;font-size:13px;color:var(--accent);margin-bottom:18px}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,7vw,76px);line-height:1.02;letter-spacing:-.01em}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{font-size:clamp(17px,2.4vw,21px);color:var(--soft);max-width:620px;margin:24px 0 30px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero-note{font-family:var(--mono);font-size:12px;color:var(--mute);margin-top:18px;letter-spacing:.08em}
+  /* sections */
+  section{padding:54px 0;border-top:1px solid var(--line)}
+  .sec-index{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin-bottom:14px}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,4vw,40px);line-height:1.08;letter-spacing:-.01em;margin-bottom:14px}
+  .sec p{color:var(--soft);max-width:680px;font-size:17px}
+  .sec p+p{margin-top:14px}
+  /* cards */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:30px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
+  .card h3{font-family:var(--display);font-weight:700;font-size:19px;margin-bottom:8px}
+  .card p{font-size:15px;color:var(--soft)}
+  /* math */
+  .math{display:flex;gap:36px;align-items:center;flex-wrap:wrap}
+  .bignum{font-family:var(--display);font-weight:700;font-size:clamp(56px,10vw,104px);line-height:1;color:var(--accent)}
+  .math-copy{flex:1;min-width:280px}
+  .fine{font-family:var(--mono);font-size:11px;color:var(--mute);margin-top:14px;letter-spacing:.06em;line-height:1.7}
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:26px}
+  .step{padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--bg2)}
+  .step .n{font-family:var(--mono);color:var(--accent);font-size:13px;letter-spacing:.1em}
+  .step h3{font-family:var(--display);font-size:18px;font-weight:700;margin:8px 0 6px}
+  .step p{font-size:14.5px;color:var(--soft)}
+  /* proof */
+  .proof{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:30px}
+  .proof .tag{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+  .proof p{margin-top:10px;font-size:17px;color:var(--soft)}
+  /* cta band */
+  .ctaband{text-align:center;background:linear-gradient(180deg,var(--bg2),var(--bg));border:1px solid var(--line);border-radius:22px;padding:54px 24px;margin:54px 0}
+  .ctaband h2{margin-bottom:10px}
+  .ctaband p{color:var(--soft);max-width:520px;margin:0 auto 26px}
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:34px 0 56px;color:var(--mute)}
+  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:12px;letter-spacing:.1em}
+  .foot a{color:var(--soft);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <span class="brand">&#9670;&nbsp; <b>JOEY</b> <span class="dot">·</span> AI SDR</span>
+    <a class="btn" href="#book">Book a teardown</a>
+  </nav>
+
+  <header class="hero">
+    <p class="eyebrow">Forward-Deployed AI</p>
+    <h1>The AI SDR your<br>funnel is <em>missing.</em></h1>
+    <p class="lede">You spend to fill the funnel, then leave the booking to a calendar link with nobody following up. Joey is the SDR you don't have: it engages every lead in seconds, works the no-shows, and books qualified calls straight to your calendar, 24/7, in your voice.</p>
+    <div class="hero-cta">
+      <a class="btn" href="#book">Book a 20-minute teardown</a>
+      <a class="btn btn--ghost" href="#how">See how it works</a>
+    </div>
+    <p class="hero-note">Convert the leads you already paid for.</p>
+  </header>
+
+  <section class="sec">
+    <p class="sec-index">01 / The gap</p>
+    <h2>You paid for the leads. Nobody follows up.</h2>
+    <p>Money pours into the top of the funnel. Then the follow-up falls to a form or a Calendly link, and the leads you bought go quiet. A big share never even show, and no one works them. That pile of ignored, already-paid-for demand is the most expensive gap in most businesses, and it costs almost nothing to close.</p>
+  </section>
+
+  <section class="sec" id="how">
+    <p class="sec-index">02 / Meet Joey</p>
+    <h2>An SDR that never sleeps, never forgets, sounds like you.</h2>
+    <div class="cards">
+      <div class="card"><h3>Instant engagement</h3><p>Every new lead gets a personalised first touch within seconds, around the clock, in your voice.</p></div>
+      <div class="card"><h3>No-show recovery</h3><p>The registrants who don't attend get re-engaged and routed to a call. Today they get nothing.</p></div>
+      <div class="card"><h3>Qualify &amp; book</h3><p>Scores intent against your rubric and pushes the warm ones straight onto your calendar.</p></div>
+      <div class="card"><h3>A live scoreboard</h3><p>Every touch and booking logged. Cost per booked call against your ad spend, measured not asserted.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <p class="sec-index">03 / The math</p>
+    <div class="math">
+      <div class="bignum">10:1</div>
+      <div class="math-copy">
+        <h2>One point pays for everything.</h2>
+        <p>Your leads are already paid for, so Joey doesn't need a miracle, just a few more of them converted. On a typical funnel, lifting the booking rate by a single point clears a 10-to-1 return. The bar to win is tiny.</p>
+        <p class="fine">Illustrative. We model the return on your real funnel before quoting anything.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <p class="sec-index">04 / How we work</p>
+    <h2>Embedded. Fixed fee. Guaranteed.</h2>
+    <div class="steps">
+      <div class="step"><span class="n">01</span><h3>Funnel teardown</h3><p>A 20-minute look at your funnel. We name the one build worth doing and what it's worth, before you spend a dollar.</p></div>
+      <div class="step"><span class="n">02</span><h3>Fixed-scope pilot</h3><p>Joey built into your funnel in a short sprint. One metric, no lock-in. If it misses the agreed target, we keep building free.</p></div>
+      <div class="step"><span class="n">03</span><h3>Run &amp; expand</h3><p>Once it's proven, Joey runs on. Then we widen: no-show engine at full strength, onboarding, content, and more.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <p class="sec-index">05 / Proof</p>
+    <div class="proof">
+      <span class="tag">First design partner</span>
+      <p>Currently onboarding our first client, a career-coaching business spending six figures a year on ads. Verified pilot results land here soon.</p>
+    </div>
+  </section>
+
+  <div class="ctaband" id="book">
+    <h2>Put Joey to work on your funnel.</h2>
+    <p>Start with a 20-minute funnel teardown. You'll leave knowing the one build worth doing and what it's worth.</p>
+    <a class="btn" href="mailto:joseph@thearchv.ca?subject=Joey%20funnel%20teardown">Book your teardown</a>
+  </div>
+
+  <footer>
+    <div class="foot">
+      <span>&#9670; Forward-Deployed AI &nbsp;·&nbsp; Joseph Bankole</span>
+      <span><a href="https://joeysdr.com">joeysdr.com</a></span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
