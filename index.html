@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Joey — the AI SDR your funnel is missing</title>
+<title>Joey: the AI SDR your funnel is missing</title>
 <meta name="description" content="Joey is an AI SDR that engages every lead in seconds, works your no-shows, and books qualified calls straight to your calendar. Convert the leads you already paid for." />
 <meta name="theme-color" content="#0B111E" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Joey — the AI SDR your funnel is missing" />
+<meta property="og:title" content="Joey: the AI SDR your funnel is missing" />
 <meta property="og:description" content="Convert the leads you already paid for. Joey engages, qualifies, and books, 24/7, in your voice." />
 <meta property="og:url" content="https://joeysdr.com/" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -85,6 +85,18 @@
   footer{border-top:1px solid var(--line);padding:34px 0 56px;color:var(--mute)}
   .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:12px;letter-spacing:.1em}
   .foot a{color:var(--soft);text-decoration:none}
+  /* comparison */
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
+  .vscol{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .vscol.joey{border-color:var(--accent)}
+  .vscol .vh{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+  .vscol.joey .vh{color:var(--accent)}
+  .vscol h3{font-family:var(--display);font-weight:700;font-size:19px;margin-bottom:14px}
+  .vslist{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .vslist li{font-size:14.5px;color:var(--soft);padding-left:18px;position:relative;line-height:1.5}
+  .vslist li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--mute)}
+  .vscol.joey .vslist li::before{background:var(--accent)}
+  @media(max-width:640px){.vs{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -98,7 +110,7 @@
   <header class="hero">
     <p class="eyebrow">Forward-Deployed AI</p>
     <h1>The AI SDR your<br>funnel is <em>missing.</em></h1>
-    <p class="lede">You spend to fill the funnel, then leave the booking to a calendar link with nobody following up. Joey is the SDR you don't have: it engages every lead in seconds, works the no-shows, and books qualified calls straight to your calendar, 24/7, in your voice.</p>
+    <p class="lede">You spend to fill the funnel, then leave the booking to a calendar link with nobody following up. Joey is the SDR you don't have: it answers every lead in seconds, chases the no-shows everyone ignores, and books the ready ones onto your calendar, in your voice.</p>
     <div class="hero-cta">
       <a class="btn" href="https://calendly.com/josephbankole/30min" target="_blank" rel="noopener noreferrer">Book a 20-minute teardown</a>
       <a class="btn btn--ghost" href="#how">See how it works</a>
@@ -114,9 +126,9 @@
 
   <section class="sec" id="how">
     <p class="sec-index">02 / Meet Joey</p>
-    <h2>An SDR that never sleeps, never forgets, sounds like you.</h2>
+    <h2>An SDR that never sleeps, and sounds exactly like you.</h2>
     <div class="cards">
-      <div class="card"><h3>Instant engagement</h3><p>Every new lead gets a personalised first touch within seconds, around the clock, in your voice.</p></div>
+      <div class="card"><h3>Instant engagement</h3><p>Every new lead gets a personal first touch within seconds, at any hour, in your voice.</p></div>
       <div class="card"><h3>No-show recovery</h3><p>The registrants who don't attend get re-engaged and routed to a call. Today they get nothing.</p></div>
       <div class="card"><h3>Qualify &amp; book</h3><p>Scores intent against your rubric and pushes the warm ones straight onto your calendar.</p></div>
       <div class="card"><h3>A live scoreboard</h3><p>Every touch and booking logged. Cost per booked call against your ad spend, measured not asserted.</p></div>
@@ -136,7 +148,37 @@
   </section>
 
   <section class="sec">
-    <p class="sec-index">04 / How we work</p>
+    <p class="sec-index">04 / The difference</p>
+    <h2>Not another cold-email robot.</h2>
+    <p>Most "AI SDRs" are built to blast strangers who never asked to hear from you. That is not your problem. Your problem is the people who already raised a hand, filled in your form, sat on your webinar, and then heard nothing back. Joey works that pile: the leads you already paid for.</p>
+    <div class="vs">
+      <div class="vscol">
+        <div class="vh">Cold-outbound AI</div>
+        <h3>Chases strangers</h3>
+        <ul class="vslist">
+          <li>Scrapes lists and cold-emails people who never opted in.</li>
+          <li>Weeks of mailbox "warm-up" before it does a thing, and your domain wears the risk.</li>
+          <li>You buy the software and run it yourself.</li>
+          <li>Long contracts, paying for messages sent whether they convert or not.</li>
+          <li>Generic templates that read like a bot.</li>
+        </ul>
+      </div>
+      <div class="vscol joey">
+        <div class="vh">Joey</div>
+        <h3>Works leads you already won</h3>
+        <ul class="vslist">
+          <li>Only messages people who already raised a hand on your funnel.</li>
+          <li>Runs on your existing funnel from week one. No warm-up, no risk to your name.</li>
+          <li>Done for you. Built into your funnel and run for you.</li>
+          <li>A fixed pilot with a guarantee, priced on booked calls, not messages blasted.</li>
+          <li>Writes in your voice, from your own answers.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <p class="sec-index">05 / How we work</p>
     <h2>Embedded. Fixed fee. Guaranteed.</h2>
     <div class="steps">
       <div class="step"><span class="n">01</span><h3>Funnel teardown</h3><p>A 20-minute look at your funnel. We name the one build worth doing and what it's worth, before you spend a dollar.</p></div>
@@ -146,10 +188,10 @@
   </section>
 
   <section class="sec">
-    <p class="sec-index">05 / Proof</p>
+    <p class="sec-index">06 / Proof</p>
     <div class="proof">
       <span class="tag">First design partner</span>
-      <p>Currently onboarding our first client, a career-coaching business spending six figures a year on ads. Verified pilot results land here soon.</p>
+      <p>We're onboarding our first client, a coaching business spending six figures a year on ads. Verified pilot results land here soon.</p>
     </div>
   </section>
 
