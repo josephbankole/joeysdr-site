@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JoeySDR - how it works in 60 seconds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B111E; --panel:#111C30; --line:#26324A; --ink:#F3F6FC;
+  --soft:#C2CCDC; --mute:#7B8AA3; --accent:#FF8A3D; --green:#34d399; --red:#f87171;
+  --disp:"Space Grotesk",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#05080f;font-family:var(--body);color:var(--ink);overflow:hidden}
+.wrap{height:100vh;display:flex;align-items:center;justify-content:center}
+/* 16:9 stage. Record this rectangle. */
+.stage{position:relative;width:min(96vw,calc(96vh*16/9));aspect-ratio:16/9;background:radial-gradient(120% 120% at 70% -10%,#152444 0%,var(--bg) 55%);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.55)}
+/* site front-end: masked grid backdrop + soft orange glow */
+.stage::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(to right,var(--line) 1px,transparent 1px),linear-gradient(to bottom,var(--line) 1px,transparent 1px);
+  background-size:54px 54px;-webkit-mask-image:radial-gradient(circle at 72% -5%,#000,transparent 68%);mask-image:radial-gradient(circle at 72% -5%,#000,transparent 68%);opacity:.45}
+.stage::after{content:"";position:absolute;top:-160px;right:-110px;width:560px;height:560px;z-index:0;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,138,61,.16),transparent 62%)}
+
+/* persistent chrome */
+.mark{position:absolute;top:4.2%;left:4%;display:flex;align-items:center;gap:.55em;font-family:var(--mono);letter-spacing:.18em;font-size:1.05vw;color:var(--soft);z-index:6}
+.mark .dia{color:var(--accent);font-size:1.1em;display:inline-block;animation:pulse 3.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
+.mark b{color:var(--ink);font-weight:700;letter-spacing:.12em}
+.timer{position:absolute;top:4.2%;right:4%;font-family:var(--mono);font-size:.95vw;color:var(--mute);z-index:6;letter-spacing:.1em}
+.bar{position:absolute;left:0;bottom:0;height:5px;width:0%;background:linear-gradient(90deg,var(--accent),#F5C57F);box-shadow:0 0 14px rgba(255,138,61,.55);z-index:6}
+
+/* scenes */
+.scene{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 8%;opacity:0;visibility:hidden;transition:opacity .55s ease}
+.scene.on{opacity:1;visibility:visible}
+.eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.34em;font-size:1.0vw;color:var(--accent);margin-bottom:1.4em;opacity:0;transform:translateY(10px)}
+.scene.on .eyebrow{animation:rise .6s .05s cubic-bezier(.2,.7,.2,1) forwards}
+h1{font-family:var(--disp);font-weight:700;font-size:4.0vw;line-height:1.08;letter-spacing:-.01em;max-width:80%}
+h1 .amber{color:var(--accent)}
+.sub{font-size:1.5vw;color:var(--soft);margin-top:1.1em;max-width:62%;line-height:1.5}
+.rise>*{opacity:0;transform:translateY(16px)}
+.scene.on .rise>*{animation:rise .65s cubic-bezier(.2,.7,.2,1) forwards}
+.scene.on .rise>*:nth-child(1){animation-delay:.15s}
+.scene.on .rise>*:nth-child(2){animation-delay:.40s}
+.scene.on .rise>*:nth-child(3){animation-delay:.65s}
+.scene.on .rise>*:nth-child(4){animation-delay:.90s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* scene 1: leads streaming then going cold */
+.dots{display:flex;flex-wrap:wrap;gap:.7vw;max-width:54%;justify-content:center;margin-top:2.2em}
+.dot{width:1.5vw;height:1.5vw;border-radius:50%;background:var(--accent);opacity:0;transform:scale(.3)}
+.scene.on .dot{animation:pop .5s ease forwards}
+.scene.on .dot.cold{animation:pop .5s ease forwards, cool .9s 2.6s ease forwards}
+@keyframes pop{to{opacity:1;transform:scale(1)}}
+@keyframes cool{to{background:var(--mute);opacity:.28;transform:scale(.82)}}
+
+/* scene 2: counter */
+.bignum{font-family:var(--disp);font-weight:700;font-size:7vw;color:var(--accent);line-height:1}
+.cap{font-size:1.4vw;color:var(--mute);margin-top:.6em;letter-spacing:.02em}
+
+/* scene 3: mechanism steps */
+.steps{display:flex;gap:1.4vw;margin-top:2.4em;width:100%;justify-content:center;flex-wrap:nowrap}
+.step{flex:1;max-width:18%;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.6vw 1.2vw;text-align:left}
+.step .n{font-family:var(--mono);color:var(--accent);font-size:.9vw;letter-spacing:.1em}
+.step .t{font-family:var(--disp);font-weight:500;font-size:1.4vw;margin-top:.5em;line-height:1.15}
+.step .d{font-size:1.0vw;color:var(--mute);margin-top:.5em;line-height:1.4}
+
+/* scene 4: voice message */
+.phone{width:46%;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:2vw;text-align:left;margin-top:1.6em}
+.phone .who{font-family:var(--mono);font-size:.85vw;letter-spacing:.14em;color:var(--mute);text-transform:uppercase}
+.bubble{margin-top:1em;background:#0E1626;border:1px solid var(--line);border-radius:14px;border-top-left-radius:4px;padding:1.3vw 1.5vw;font-size:1.5vw;line-height:1.5;color:var(--ink);min-height:6vw}
+.cursor{display:inline-block;width:.5ch;background:var(--accent);animation:blink 1s steps(1) infinite;color:transparent}
+@keyframes blink{50%{opacity:0}}
+.tag{display:inline-flex;align-items:center;gap:.5em;margin-top:1.2em;font-size:1.05vw;color:var(--green);font-family:var(--mono);letter-spacing:.08em}
+
+/* scene 5: setup */
+.cards3{display:flex;gap:1.4vw;margin-top:2.2em}
+.mini{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.3vw 1.6vw;font-size:1.2vw;color:var(--soft);display:flex;align-items:center;gap:.6em}
+.mini .c{color:var(--accent);font-weight:700}
+.safe{margin-top:2em;font-size:1.35vw;color:var(--soft);max-width:64%;line-height:1.5}
+.safe b{color:var(--ink)}
+
+/* scene 6: scoreboard */
+.score{display:flex;gap:1.6vw;margin-top:2.2em}
+.metric{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.6vw 2vw;min-width:13vw}
+.metric .l{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:.85vw;color:var(--mute)}
+.metric .v{font-family:var(--disp);font-weight:700;font-size:3.4vw;color:var(--ink);margin-top:.25em;line-height:1}
+.metric .v.amber{color:var(--accent)}
+.metric .s{font-size:.95vw;color:var(--mute);margin-top:.3em}
+
+/* scene 7: logo */
+.lock{display:flex;flex-direction:column;align-items:center;gap:.2em}
+.diaBig{font-size:5vw;color:var(--accent);line-height:1;animation:pulse 3.4s ease-in-out infinite}
+.word{font-family:var(--disp);font-weight:700;font-size:5.5vw;letter-spacing:.04em}
+.label{font-family:var(--mono);letter-spacing:.5em;font-size:1.1vw;color:var(--mute);text-transform:uppercase;margin-top:.2em}
+.tagline{font-family:var(--disp);font-weight:500;font-size:2vw;color:var(--soft);margin-top:1.4em}
+.url{font-family:var(--mono);font-size:1.1vw;color:var(--accent);margin-top:1.0em;letter-spacing:.06em}
+/* final CTA pills, with the site's shimmer sweep */
+.ctaRow{display:flex;gap:1.2vw;margin-top:1.6em;align-items:center;justify-content:center;flex-wrap:wrap}
+.cta{position:relative;overflow:hidden;text-decoration:none;font-family:var(--body);font-weight:600;font-size:1.25vw;border-radius:40px;padding:.9vw 1.8vw;transition:transform .15s ease,box-shadow .25s ease,background .15s}
+.cta.primary{background:var(--accent);color:#0B111E;box-shadow:0 10px 30px -12px rgba(255,138,61,.7)}
+.cta.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.cta:hover{transform:translateY(-2px)}
+.cta::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);transition:left .6s ease}
+.cta:hover::after{left:130%}
+.cta.ghost::after{background:linear-gradient(100deg,transparent,rgba(255,138,61,.2),transparent)}
+
+/* controls (not part of the recording frame) */
+.controls{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:30}
+.controls button{font-family:var(--mono);font-size:12px;letter-spacing:.08em;background:#111C30;color:var(--soft);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer}
+.controls button:hover{color:var(--ink);border-color:var(--accent)}
+.hint{position:fixed;bottom:46px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:#3d4860;z-index:30}
+@media print{.controls,.hint{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stage" id="stage">
+    <div class="mark"><span class="dia">&#9670;</span> <b>JOEY</b> · AI SDR</div>
+    <div class="timer" id="timer">0:00</div>
+
+    <!-- 1 / leak -->
+    <section class="scene" data-start="0">
+      <div class="rise">
+        <div class="eyebrow">The leak</div>
+        <h1>You pay for every lead.<br><span class="amber">Most never book.</span></h1>
+        <div class="dots" id="dots"></div>
+      </div>
+    </section>
+
+    <!-- 2 / cost -->
+    <section class="scene" data-start="8">
+      <div class="rise">
+        <div class="eyebrow">The cost</div>
+        <div class="bignum">3 in 4</div>
+        <div class="cap">of the leads you paid for never get a real follow-up.</div>
+        <div class="sub">The ones who don't book get a calendar link and silence. That pile is the most expensive thing in the business, and almost nothing is working it.</div>
+      </div>
+    </section>
+
+    <!-- 3 / mechanism -->
+    <section class="scene" data-start="18">
+      <div class="rise" style="width:100%">
+        <div class="eyebrow">What Joey does</div>
+        <h1 style="font-size:2.9vw">It works the leads you already paid for.</h1>
+        <div class="steps">
+          <div class="step"><div class="n">01</div><div class="t">Instant first touch</div><div class="d">Replies in seconds, any hour, in your voice.</div></div>
+          <div class="step"><div class="n">02</div><div class="t">Qualifies</div><div class="d">Scores each lead on your rubric, not just a form.</div></div>
+          <div class="step"><div class="n">03</div><div class="t">Books the call</div><div class="d">Puts the good ones straight on your calendar.</div></div>
+          <div class="step"><div class="n">04</div><div class="t">Recovers no-shows</div><div class="d">Chases the ones who ghost, automatically.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 / your voice -->
+    <section class="scene" data-start="30">
+      <div class="rise">
+        <div class="eyebrow">In your voice</div>
+        <h1 style="font-size:2.6vw">Trained on your own writing.</h1>
+      </div>
+      <div class="phone">
+        <div class="who">Joey &#8594; new lead</div>
+        <div class="bubble" id="bubble"></div>
+        <div class="tag">&#10003; you approve the voice once, before it ever sends</div>
+      </div>
+    </section>
+
+    <!-- 5 / setup -->
+    <section class="scene" data-start="40">
+      <div class="rise">
+        <div class="eyebrow">Your effort</div>
+        <h1 style="font-size:3.0vw">Three things from you.<br><span class="amber">Live in a week.</span></h1>
+        <div class="cards3">
+          <div class="mini"><span class="c">1</span> where your leads land</div>
+          <div class="mini"><span class="c">2</span> your booking link</div>
+          <div class="mini"><span class="c">3</span> a few of your real replies</div>
+        </div>
+        <div class="safe">It sits on top of your funnel. If Joey is ever off, leads self-book exactly like today. <b>Nothing breaks.</b></div>
+      </div>
+    </section>
+
+    <!-- 6 / exponential results -->
+    <section class="scene" data-start="50">
+      <div class="rise" style="width:100%">
+        <div class="eyebrow">The result</div>
+        <h1 style="font-size:2.7vw">The leads are paid for. Joey just converts more.</h1>
+        <div class="score">
+          <div class="metric"><div class="l">Reply rate</div><div class="v"><span id="m1">0</span>%</div><div class="s">within seconds</div></div>
+          <div class="metric"><div class="l">Cost / booked call</div><div class="v amber">$<span id="m2">0.00</span></div><div class="s">vs your ad cost per call</div></div>
+          <div class="metric"><div class="l">Return floor</div><div class="v"><span id="m3">0</span>:1</div><div class="s">on a 1-point booking lift</div></div>
+        </div>
+        <div class="sub" style="margin-top:1.6em">A single-point lift in your booking rate already clears it. Example figures from a live pilot.</div>
+      </div>
+    </section>
+
+    <!-- 7 / logo -->
+    <section class="scene" data-start="58">
+      <div class="rise">
+        <div class="lock">
+          <div class="diaBig">&#9670;</div>
+          <div class="word">JOEY</div>
+          <div class="label">AI SDR</div>
+        </div>
+        <div class="tagline">We convert the leads you already paid for.</div>
+        <div class="ctaRow">
+          <a class="cta primary" href="https://calendly.com/josephbankole/30min" target="_blank" rel="noopener">Book a 30-min call</a>
+          <a class="cta ghost" href="mailto:partnerships@josephbankole.ca">partnerships@josephbankole.ca</a>
+        </div>
+        <div class="url">joeysdr.com</div>
+      </div>
+    </section>
+
+    <div class="bar" id="bar"></div>
+  </div>
+</div>
+
+<div class="hint">How JoeySDR works, in 60 seconds. joeysdr.com</div>
+<div class="controls">
+  <button id="replay">&#8635; Restart</button>
+  <button id="rewind">&#8634; Back 5s</button>
+  <button id="pause">&#10073;&#10073; Pause</button>
+</div>
+
+<script>
+const DUR = 60; // seconds
+const scenes = [...document.querySelectorAll('.scene')];
+const starts = scenes.map(s => +s.dataset.start);
+const bar = document.getElementById('bar');
+const timer = document.getElementById('timer');
+let t0 = null, paused = false, pausedAt = 0, raf = null;
+let typed = false;
+
+// build scene 1 dots
+const dotsWrap = document.getElementById('dots');
+for(let i=0;i<28;i++){const d=document.createElement('span');d.className='dot'+(i>6?' cold':'');d.style.animationDelay=(i*0.06)+'s, '+(2.6+i*0.04)+'s';dotsWrap.appendChild(d);}
+
+function fmt(s){const m=Math.floor(s/60);const ss=Math.floor(s%60);return m+':'+String(ss).padStart(2,'0');}
+
+function animateCount(el,to,dec,dur){
+  if(!el) return; const start=performance.now();
+  function step(now){const k=Math.min(1,(now-start)/dur);const e=1-Math.pow(1-k,3);const val=to*e;
+    el.textContent=dec?val.toFixed(dec):Math.round(val);if(k<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+}
+
+const VOICE = "Hi there, thanks for reaching out. Quick one so I point you the right way: what are you hoping to fix first, and is this a now thing or a bit later? If it is a fit, I will grab you a time this week.";
+function typeBubble(){
+  const b=document.getElementById('bubble'); if(!b) return; b.innerHTML='';
+  let i=0; const cur=document.createElement('span'); cur.className='cursor'; cur.textContent='|';
+  b.appendChild(cur);
+  const iv=setInterval(()=>{
+    if(i>=VOICE.length){clearInterval(iv);return;}
+    cur.insertAdjacentText('beforebegin',VOICE[i]); i++;
+  },28);
+}
+
+const fired={};
+function fireScene(idx){
+  if(fired[idx])return; fired[idx]=true;
+  if(idx===3) typeBubble();
+  if(idx===5){animateCount(document.getElementById('m1'),83,0,1300);
+    animateCount(document.getElementById('m2'),0.23,2,1400);
+    animateCount(document.getElementById('m3'),10,0,1300);}
+}
+
+let elapsed=0, last=null;
+function render(){
+  const c=Math.min(elapsed,DUR);
+  bar.style.width=(c/DUR*100)+'%';
+  timer.textContent=fmt(c);
+  let active=0;
+  for(let i=0;i<starts.length;i++){if(c>=starts[i])active=i;}
+  scenes.forEach((s,i)=>s.classList.toggle('on',i===active));
+  fireScene(active);
+}
+function loop(now){
+  if(last===null)last=now;
+  if(!paused && elapsed<DUR){elapsed+=(now-last)/1000;if(elapsed>DUR)elapsed=DUR;}
+  last=now;
+  render();
+  requestAnimationFrame(loop);
+}
+function seek(to){
+  elapsed=Math.max(0,Math.min(to,DUR));
+  Object.keys(fired).forEach(k=>delete fired[k]);   // let re-entered scenes re-animate
+  scenes.forEach(s=>s.classList.remove('on'));       // force the enter animation to replay
+  render();
+}
+const pauseBtn=document.getElementById('pause');
+function setPaused(p){paused=p;pauseBtn.innerHTML=p?'&#9654; Play':'&#10073;&#10073; Pause';}
+document.getElementById('replay').onclick=function(){setPaused(false);seek(0);};
+document.getElementById('rewind').onclick=function(){seek(elapsed-5);};
+pauseBtn.onclick=function(){setPaused(!paused);};
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
