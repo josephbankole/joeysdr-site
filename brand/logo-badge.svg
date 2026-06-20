@@ -1,0 +1,21 @@
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="JoeySDR badge logo">
+  <defs>
+    <linearGradient id="navyDepth" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#212b4d"/>
+      <stop offset="100%" stop-color="#161d38"/>
+    </linearGradient>
+  </defs>
+  <circle cx="512" cy="512" r="392" fill="url(#navyDepth)"/>
+  <circle cx="512" cy="512" r="392" fill="none" stroke="#c9a84c" stroke-width="10"/>
+  <circle cx="512" cy="512" r="356" fill="none" stroke="#c9a84c" stroke-width="6"/>
+  <text x="512" y="500" text-anchor="middle"
+        font-family="'Space Grotesk','Verdana',Geneva,sans-serif" font-weight="700" font-size="112"
+        letter-spacing="2" fill="#f7f3e2">Joey<tspan fill="#e6b94e">SDR</tspan></text>
+  <text x="512" y="575" text-anchor="middle"
+        font-family="'Space Grotesk','Verdana',Geneva,sans-serif" font-weight="700" font-size="40"
+        letter-spacing="14" fill="#c9a84c">AI&#160;&#160;SDR</text>
+  <g transform="translate(512 660)" fill="none" stroke="#e6b94e" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M -120 -20 L 0 -20 M -95 8 L 0 8 M -70 36 L 0 36"/>
+    <path d="M 30 -20 L 90 8 L 30 36 Z" fill="#e6b94e" stroke="none"/>
+  </g>
+</svg>
