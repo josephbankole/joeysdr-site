@@ -113,10 +113,16 @@ h1 .amber{color:var(--accent)}
 .controls button{font-family:var(--mono);font-size:12px;letter-spacing:.08em;background:#111C30;color:var(--soft);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer}
 .controls button:hover{color:var(--ink);border-color:var(--accent)}
 .hint{position:fixed;bottom:46px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:#3d4860;z-index:30}
-@media print{.controls,.hint{display:none}}
+.backlink{position:fixed;top:18px;left:18px;z-index:40;display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+  font-family:var(--body);font-weight:600;font-size:14px;color:var(--ink);background:#111C30;border:1px solid var(--line);
+  border-radius:30px;padding:9px 16px;transition:border-color .2s,transform .15s,background .2s}
+.backlink:hover{border-color:var(--accent);transform:translateY(-1px)}
+.backlink .x{color:var(--accent);font-size:16px;line-height:1}
+@media print{.controls,.hint,.backlink{display:none}}
 </style>
 </head>
 <body>
+<a class="backlink" href="/"><span class="x">&#10005;</span> Back to joeysdr.com</a>
 <div class="wrap">
   <div class="stage" id="stage">
     <div class="mark"><span class="dia">&#9670;</span> <b>JOEY</b> · AI SDR</div>
