@@ -100,6 +100,8 @@
   .ctaband p{color:var(--soft);max-width:520px;margin:0 auto 26px}
   /* footer */
   footer{border-top:1px solid var(--line);padding:34px 0 56px;color:var(--mute)}
+  .foundernote{font-size:15px;color:var(--soft);margin-bottom:20px}
+  .foundernote a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:3px}
   .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:12px;letter-spacing:.1em}
   .foot a{color:var(--soft);text-decoration:none}
   /* comparison */
@@ -314,8 +316,8 @@
   <section class="sec" id="proof" data-rail="Proof">
     <p class="sec-index">06 / Proof</p>
     <div class="proof">
-      <span class="tag">First design partner</span>
-      <p>We're onboarding our first client, a coaching business spending six figures a year on ads. Verified pilot results land here soon.</p>
+      <span class="tag">Founder-led</span>
+      <p>I build and run every pilot myself, one at a time. Right now that's a coaching business spending six figures a year on ads. When the numbers are in they'll sit right here, verified. Until then, the teardown is free and you keep the plan either way.</p>
     </div>
   </section>
 
@@ -327,6 +329,7 @@
   </div>
 
   <footer>
+    <p class="foundernote">Built and run by <a href="https://josephbankole.ca" target="_blank" rel="noopener">Joseph Bankole</a>. No agency, no hand-off, you work directly with me.</p>
     <div class="foot">
       <span><img class="footmark" src="brand/logo-badge.svg" width="22" height="22" alt="" /> Forward-Deployed AI &nbsp;·&nbsp; Joseph Bankole</span>
       <span><a href="https://joeysdr.com">joeysdr.com</a></span>
@@ -496,6 +499,11 @@
   var demo = document.querySelector('a[href="/demo/"]');
   if (demo) demo.addEventListener('click', function(){
     if (window.posthog) posthog.capture('demo_click', { site: 'joeysdr.com', location: 'hero' });
+  });
+  document.querySelectorAll('a[href*="josephbankole.ca"]').forEach(function(a){
+    a.addEventListener('click', function(){
+      if (window.posthog) posthog.capture('founder_link_click', { site: 'joeysdr.com' });
+    });
   });
 })();
 </script>
