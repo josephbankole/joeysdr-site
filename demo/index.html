@@ -4,6 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>JoeySDR - how it works in 60 seconds</title>
+<meta name="description" content="A 60-second walkthrough of Joey, the AI SDR that answers every lead in seconds, works your no-shows, and books qualified calls to your calendar.">
+<link rel="canonical" href="https://joeysdr.com/demo/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="JoeySDR - how it works in 60 seconds">
+<meta property="og:description" content="Watch Joey engage, qualify, and book a lead end to end.">
+<meta property="og:url" content="https://joeysdr.com/demo/">
+<meta property="og:image" content="https://joeysdr.com/og-image.png">
+<!-- PostHog: same project as the homepage; demo views + booking clicks were invisible before. -->
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister opt_in_capturing opt_out_capturing".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_kg8nXCp4TJMcRjBQAVZTQoubijYWeBRMHU9PHYgiUagm',{api_host:'https://us.i.posthog.com',autocapture:false,capture_pageview:true,persistence:'localStorage',respect_dnt:true});
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -212,7 +224,7 @@ h1 .amber{color:var(--accent)}
         </div>
         <div class="tagline">We convert the leads you already paid for.</div>
         <div class="ctaRow">
-          <a class="cta primary" href="https://calendly.com/josephbankole/30min" target="_blank" rel="noopener">Book a 30-min call</a>
+          <a class="cta primary" href="https://calendly.com/josephbankole/30min?utm_source=joeysdr.com&utm_medium=site&utm_content=demo" target="_blank" rel="noopener" onclick="window.posthog&&posthog.capture('calendly_click',{site:'joeysdr.com',location:'demo'})">Book a 30-min call</a>
           <a class="cta ghost" href="mailto:partnerships@josephbankole.ca">partnerships@josephbankole.ca</a>
         </div>
         <div class="url">joeysdr.com</div>
