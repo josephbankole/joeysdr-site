@@ -38,21 +38,21 @@ html,body{height:100%;background:#05080f;font-family:var(--body);color:var(--ink
   background:radial-gradient(circle,rgba(255,138,61,.16),transparent 62%)}
 
 /* persistent chrome */
-.mark{position:absolute;top:4.2%;left:4%;display:flex;align-items:center;gap:.55em;font-family:var(--mono);letter-spacing:.18em;font-size:1.05vw;color:var(--soft);z-index:6}
+.mark{position:absolute;top:4.2%;left:4%;display:flex;align-items:center;gap:.55em;font-family:var(--mono);letter-spacing:.18em;font-size:clamp(0.72rem,1.05vw,1.26rem);color:var(--soft);z-index:6}
 .mark .dia{color:var(--accent);font-size:1.1em;display:inline-block;animation:pulse 3.4s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
 .mark b{color:var(--ink);font-weight:700;letter-spacing:.12em}
-.timer{position:absolute;top:4.2%;right:4%;font-family:var(--mono);font-size:.95vw;color:var(--mute);z-index:6;letter-spacing:.1em}
+.timer{position:absolute;top:4.2%;right:4%;font-family:var(--mono);font-size:clamp(0.7rem,0.95vw,1.14rem);color:var(--mute);z-index:6;letter-spacing:.1em}
 .bar{position:absolute;left:0;bottom:0;height:5px;width:0%;background:linear-gradient(90deg,var(--accent),#F5C57F);box-shadow:0 0 14px rgba(255,138,61,.55);z-index:6}
 
 /* scenes */
 .scene{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 8%;opacity:0;visibility:hidden;transition:opacity .55s ease}
 .scene.on{opacity:1;visibility:visible}
-.eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.34em;font-size:1.0vw;color:var(--accent);margin-bottom:1.4em;opacity:0;transform:translateY(10px)}
+.eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.34em;font-size:clamp(0.72rem,1vw,1.2rem);color:var(--accent);margin-bottom:1.4em;opacity:0;transform:translateY(10px)}
 .scene.on .eyebrow{animation:rise .6s .05s cubic-bezier(.2,.7,.2,1) forwards}
-h1{font-family:var(--disp);font-weight:700;font-size:4.0vw;line-height:1.08;letter-spacing:-.01em;max-width:80%}
+h1{font-family:var(--disp);font-weight:700;font-size:clamp(1.75rem,4vw,4.8rem);line-height:1.08;letter-spacing:-.01em;max-width:80%}
 h1 .amber{color:var(--accent)}
-.sub{font-size:1.5vw;color:var(--soft);margin-top:1.1em;max-width:62%;line-height:1.5}
+.sub{font-size:clamp(0.95rem,1.5vw,1.8rem);color:var(--soft);margin-top:1.1em;max-width:62%;line-height:1.5}
 .rise>*{opacity:0;transform:translateY(16px)}
 .scene.on .rise>*{animation:rise .65s cubic-bezier(.2,.7,.2,1) forwards}
 .scene.on .rise>*:nth-child(1){animation-delay:.15s}
@@ -63,56 +63,56 @@ h1 .amber{color:var(--accent)}
 
 /* scene 1: leads streaming then going cold */
 .dots{display:flex;flex-wrap:wrap;gap:.7vw;max-width:54%;justify-content:center;margin-top:2.2em}
-.dot{width:1.5vw;height:1.5vw;border-radius:50%;background:var(--accent);opacity:0;transform:scale(.3)}
+.dot{width:clamp(12px,1.5vw,29px);height:clamp(12px,1.5vw,29px);border-radius:50%;background:var(--accent);opacity:0;transform:scale(.3)}
 .scene.on .dot{animation:pop .5s ease forwards}
 .scene.on .dot.cold{animation:pop .5s ease forwards, cool .9s 2.6s ease forwards}
 @keyframes pop{to{opacity:1;transform:scale(1)}}
 @keyframes cool{to{background:var(--mute);opacity:.28;transform:scale(.82)}}
 
 /* scene 2: counter */
-.bignum{font-family:var(--disp);font-weight:700;font-size:7vw;color:var(--accent);line-height:1}
-.cap{font-size:1.4vw;color:var(--mute);margin-top:.6em;letter-spacing:.02em}
+.bignum{font-family:var(--disp);font-weight:700;font-size:clamp(3rem,7vw,8.4rem);color:var(--accent);line-height:1}
+.cap{font-size:clamp(0.9rem,1.4vw,1.68rem);color:var(--mute);margin-top:.6em;letter-spacing:.02em}
 
 /* scene 3: mechanism steps */
 .steps{display:flex;gap:1.4vw;margin-top:2.4em;width:100%;justify-content:center;flex-wrap:nowrap}
 .step{flex:1;max-width:18%;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.6vw 1.2vw;text-align:left}
-.step .n{font-family:var(--mono);color:var(--accent);font-size:.9vw;letter-spacing:.1em}
-.step .t{font-family:var(--disp);font-weight:500;font-size:1.4vw;margin-top:.5em;line-height:1.15}
-.step .d{font-size:1.0vw;color:var(--mute);margin-top:.5em;line-height:1.4}
+.step .n{font-family:var(--mono);color:var(--accent);font-size:clamp(0.7rem,0.9vw,1.08rem);letter-spacing:.1em}
+.step .t{font-family:var(--disp);font-weight:500;font-size:clamp(0.95rem,1.4vw,1.68rem);margin-top:.5em;line-height:1.15}
+.step .d{font-size:clamp(0.8rem,1vw,1.2rem);color:var(--mute);margin-top:.5em;line-height:1.4}
 
 /* scene 4: voice message */
 .phone{width:46%;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:2vw;text-align:left;margin-top:1.6em}
-.phone .who{font-family:var(--mono);font-size:.85vw;letter-spacing:.14em;color:var(--mute);text-transform:uppercase}
-.bubble{margin-top:1em;background:#0E1626;border:1px solid var(--line);border-radius:14px;border-top-left-radius:4px;padding:1.3vw 1.5vw;font-size:1.5vw;line-height:1.5;color:var(--ink);min-height:6vw}
+.phone .who{font-family:var(--mono);font-size:clamp(0.66rem,0.85vw,1.02rem);letter-spacing:.14em;color:var(--mute);text-transform:uppercase}
+.bubble{margin-top:1em;background:#0E1626;border:1px solid var(--line);border-radius:14px;border-top-left-radius:4px;padding:1.3vw 1.5vw;font-size:clamp(0.95rem,1.5vw,1.8rem);line-height:1.5;color:var(--ink);min-height:6vw}
 .cursor{display:inline-block;width:.5ch;background:var(--accent);animation:blink 1s steps(1) infinite;color:transparent}
 @keyframes blink{50%{opacity:0}}
-.tag{display:inline-flex;align-items:center;gap:.5em;margin-top:1.2em;font-size:1.05vw;color:var(--green);font-family:var(--mono);letter-spacing:.08em}
+.tag{display:inline-flex;align-items:center;gap:.5em;margin-top:1.2em;font-size:clamp(0.75rem,1.05vw,1.26rem);color:var(--green);font-family:var(--mono);letter-spacing:.08em}
 
 /* scene 5: setup */
 .cards3{display:flex;gap:1.4vw;margin-top:2.2em}
-.mini{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.3vw 1.6vw;font-size:1.2vw;color:var(--soft);display:flex;align-items:center;gap:.6em}
+.mini{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.3vw 1.6vw;font-size:clamp(0.85rem,1.2vw,1.44rem);color:var(--soft);display:flex;align-items:center;gap:.6em}
 .mini .c{color:var(--accent);font-weight:700}
-.safe{margin-top:2em;font-size:1.35vw;color:var(--soft);max-width:64%;line-height:1.5}
+.safe{margin-top:2em;font-size:clamp(0.9rem,1.35vw,1.62rem);color:var(--soft);max-width:64%;line-height:1.5}
 .safe b{color:var(--ink)}
 
 /* scene 6: scoreboard */
 .score{display:flex;gap:1.6vw;margin-top:2.2em}
 .metric{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.6vw 2vw;min-width:13vw}
-.metric .l{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:.85vw;color:var(--mute)}
-.metric .v{font-family:var(--disp);font-weight:700;font-size:3.4vw;color:var(--ink);margin-top:.25em;line-height:1}
+.metric .l{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:clamp(0.66rem,0.85vw,1.02rem);color:var(--mute)}
+.metric .v{font-family:var(--disp);font-weight:700;font-size:clamp(1.6rem,3.4vw,4.08rem);color:var(--ink);margin-top:.25em;line-height:1}
 .metric .v.amber{color:var(--accent)}
-.metric .s{font-size:.95vw;color:var(--mute);margin-top:.3em}
+.metric .s{font-size:clamp(0.75rem,0.95vw,1.14rem);color:var(--mute);margin-top:.3em}
 
 /* scene 7: logo */
 .lock{display:flex;flex-direction:column;align-items:center;gap:.2em}
-.diaBig{font-size:5vw;color:var(--accent);line-height:1;animation:pulse 3.4s ease-in-out infinite}
-.word{font-family:var(--disp);font-weight:700;font-size:5.5vw;letter-spacing:.04em}
-.label{font-family:var(--mono);letter-spacing:.5em;font-size:1.1vw;color:var(--mute);text-transform:uppercase;margin-top:.2em}
-.tagline{font-family:var(--disp);font-weight:500;font-size:2vw;color:var(--soft);margin-top:1.4em}
-.url{font-family:var(--mono);font-size:1.1vw;color:var(--accent);margin-top:1.0em;letter-spacing:.06em}
+.diaBig{font-size:clamp(2.2rem,5vw,6rem);color:var(--accent);line-height:1;animation:pulse 3.4s ease-in-out infinite}
+.word{font-family:var(--disp);font-weight:700;font-size:clamp(2.4rem,5.5vw,6.6rem);letter-spacing:.04em}
+.label{font-family:var(--mono);letter-spacing:.5em;font-size:clamp(0.7rem,1.1vw,1.32rem);color:var(--mute);text-transform:uppercase;margin-top:.2em}
+.tagline{font-family:var(--disp);font-weight:500;font-size:clamp(1.1rem,2vw,2.4rem);color:var(--soft);margin-top:1.4em}
+.url{font-family:var(--mono);font-size:clamp(0.8rem,1.1vw,1.32rem);color:var(--accent);margin-top:1.0em;letter-spacing:.06em}
 /* final CTA pills, with the site's shimmer sweep */
 .ctaRow{display:flex;gap:1.2vw;margin-top:1.6em;align-items:center;justify-content:center;flex-wrap:wrap}
-.cta{position:relative;overflow:hidden;text-decoration:none;font-family:var(--body);font-weight:600;font-size:1.25vw;border-radius:40px;padding:.9vw 1.8vw;transition:transform .15s ease,box-shadow .25s ease,background .15s}
+.cta{position:relative;overflow:hidden;text-decoration:none;font-family:var(--body);font-weight:600;font-size:clamp(0.95rem,1.25vw,1.5rem);border-radius:40px;padding:.9vw 1.8vw;transition:transform .15s ease,box-shadow .25s ease,background .15s}
 .cta.primary{background:var(--accent);color:#0B111E;box-shadow:0 10px 30px -12px rgba(255,138,61,.7)}
 .cta.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
 .cta:hover{transform:translateY(-2px)}
@@ -130,6 +130,31 @@ h1 .amber{color:var(--accent)}
   border-radius:30px;padding:9px 16px;transition:border-color .2s,transform .15s,background .2s}
 .backlink:hover{border-color:var(--accent);transform:translateY(-1px)}
 .backlink .x{color:var(--accent);font-size:16px;line-height:1}
+/* mobile: readable type, single-column rows, 44px tap targets, no horizontal scroll */
+@media (max-width:720px){
+  .wrap{height:100vh;height:100dvh}
+  .stage{width:96vw;aspect-ratio:auto;height:calc(100vh - 170px);height:calc(100dvh - 170px);border-radius:14px}
+  .scene{padding:52px 6% 20px;overflow-y:auto;justify-content:flex-start}
+  .scene>*{margin-top:auto;margin-bottom:auto}
+  h1{max-width:100%}
+  .sub{max-width:100%}
+  .dots{max-width:88%;gap:8px;margin-top:1.6em}
+  .steps{flex-direction:column;flex-wrap:wrap;gap:10px;margin-top:1.4em}
+  .step{max-width:100%;padding:12px 14px}
+  .phone{width:100%;padding:16px;margin-top:1em}
+  .bubble{padding:12px 14px;min-height:76px}
+  .cards3{flex-direction:column;gap:10px;width:100%}
+  .mini{padding:12px 16px;min-height:44px}
+  .safe{max-width:100%}
+  .score{flex-direction:column;gap:10px;width:100%}
+  .metric{min-width:0;width:100%;padding:14px 18px}
+  .ctaRow{flex-direction:column;width:100%;gap:10px;margin-top:1.4em}
+  .cta{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:48px;padding:12px 20px}
+  .backlink{min-height:44px;display:inline-flex;align-items:center}
+  .controls{bottom:10px}
+  .controls button{min-height:44px;padding:10px 14px}
+  .hint{display:none}
+}
 @media print{.controls,.hint,.backlink{display:none}}
 </style>
 </head>
@@ -163,7 +188,7 @@ h1 .amber{color:var(--accent)}
     <section class="scene" data-start="18">
       <div class="rise" style="width:100%">
         <div class="eyebrow">What Joey does</div>
-        <h1 style="font-size:2.9vw">It works the leads you already paid for.</h1>
+        <h1 style="font-size:clamp(1.4rem,2.9vw,3.48rem)">It works the leads you already paid for.</h1>
         <div class="steps">
           <div class="step"><div class="n">01</div><div class="t">Instant first touch</div><div class="d">Replies in seconds, any hour, in your voice.</div></div>
           <div class="step"><div class="n">02</div><div class="t">Qualifies</div><div class="d">Scores each lead on your rubric, not just a form.</div></div>
@@ -177,7 +202,7 @@ h1 .amber{color:var(--accent)}
     <section class="scene" data-start="30">
       <div class="rise">
         <div class="eyebrow">In your voice</div>
-        <h1 style="font-size:2.6vw">Trained on your own writing.</h1>
+        <h1 style="font-size:clamp(1.3rem,2.6vw,3.12rem)">Trained on your own writing.</h1>
       </div>
       <div class="phone">
         <div class="who">Joey &#8594; new lead</div>
@@ -190,7 +215,7 @@ h1 .amber{color:var(--accent)}
     <section class="scene" data-start="40">
       <div class="rise">
         <div class="eyebrow">Your effort</div>
-        <h1 style="font-size:3.0vw">Three things from you.<br><span class="amber">Live in a week.</span></h1>
+        <h1 style="font-size:clamp(1.45rem,3vw,3.6rem)">Three things from you.<br><span class="amber">Live in a week.</span></h1>
         <div class="cards3">
           <div class="mini"><span class="c">1</span> where your leads land</div>
           <div class="mini"><span class="c">2</span> your booking link</div>
@@ -204,7 +229,7 @@ h1 .amber{color:var(--accent)}
     <section class="scene" data-start="50">
       <div class="rise" style="width:100%">
         <div class="eyebrow">The result</div>
-        <h1 style="font-size:2.7vw">The leads are paid for. Joey just converts more.</h1>
+        <h1 style="font-size:clamp(1.35rem,2.7vw,3.24rem)">The leads are paid for. Joey just converts more.</h1>
         <div class="score">
           <div class="metric"><div class="l">Reply rate</div><div class="v"><span id="m1">0</span>%</div><div class="s">within seconds</div></div>
           <div class="metric"><div class="l">Cost / booked call</div><div class="v amber">$<span id="m2">0.00</span></div><div class="s">vs your ad cost per call</div></div>
