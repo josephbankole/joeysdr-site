@@ -6,11 +6,18 @@
 <title>JoeySDR - how it works in 60 seconds</title>
 <meta name="description" content="A 60-second walkthrough of Joey, the AI SDR that answers every lead in seconds, works your no-shows, and books qualified calls to your calendar.">
 <link rel="canonical" href="https://joeysdr.com/demo/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20x='8'%20y='8'%20width='16'%20height='16'%20transform='rotate(45%2016%2016)'%20fill='%23FF8A3D'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="JoeySDR - how it works in 60 seconds">
 <meta property="og:description" content="Watch Joey engage, qualify, and book a lead end to end.">
 <meta property="og:url" content="https://joeysdr.com/demo/">
-<meta property="og:image" content="https://joeysdr.com/og-image.png">
+<meta property="og:image" content="https://joeysdr.com/demo/poster.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="720">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JoeySDR - how it works in 60 seconds">
+<meta name="twitter:description" content="Watch Joey engage, qualify, and book a lead end to end.">
+<meta name="twitter:image" content="https://joeysdr.com/demo/poster.png">
 <!-- PostHog: same project as the homepage; demo views + booking clicks were invisible before. -->
 <script>
   !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister opt_in_capturing opt_out_capturing".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
@@ -50,8 +57,8 @@ html,body{height:100%;background:#05080f;font-family:var(--body);color:var(--ink
 .scene.on{opacity:1;visibility:visible}
 .eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.34em;font-size:clamp(0.72rem,1vw,1.2rem);color:var(--accent);margin-bottom:1.4em;opacity:0;transform:translateY(10px)}
 .scene.on .eyebrow{animation:rise .6s .05s cubic-bezier(.2,.7,.2,1) forwards}
-h1{font-family:var(--disp);font-weight:700;font-size:clamp(1.75rem,4vw,4.8rem);line-height:1.08;letter-spacing:-.01em;max-width:80%}
-h1 .amber{color:var(--accent)}
+.scene-title{font-family:var(--disp);font-weight:700;font-size:clamp(1.75rem,4vw,4.8rem);line-height:1.08;letter-spacing:-.01em;max-width:80%}
+.scene-title .amber{color:var(--accent)}
 .sub{font-size:clamp(0.95rem,1.5vw,1.8rem);color:var(--soft);margin-top:1.1em;max-width:62%;line-height:1.5}
 .rise>*{opacity:0;transform:translateY(16px)}
 .scene.on .rise>*{animation:rise .65s cubic-bezier(.2,.7,.2,1) forwards}
@@ -156,6 +163,20 @@ h1 .amber{color:var(--accent)}
   .hint{display:none}
 }
 @media print{.controls,.hint,.backlink{display:none}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .scene{transition:none}
+  .eyebrow{opacity:1;transform:none}
+  .scene .eyebrow{animation:none}
+  .rise>*{opacity:1;transform:none}
+  .scene .rise>*{animation:none}
+  .dot{opacity:1;transform:none}
+  .scene .dot{animation:none}
+  .scene .dot.cold{animation:none;background:var(--mute);opacity:.28;transform:scale(.82)}
+  .cursor{animation:none;opacity:0}
+  .mark .dia,.diaBig{animation:none}
+  .cta::after{display:none}
+}
 </style>
 </head>
 <body>
@@ -169,7 +190,7 @@ h1 .amber{color:var(--accent)}
     <section class="scene" data-start="0">
       <div class="rise">
         <div class="eyebrow">The leak</div>
-        <h1>You pay for every lead.<br><span class="amber">Most never book.</span></h1>
+        <h1 class="scene-title">You pay for every lead.<br><span class="amber">Most never book.</span></h1>
         <div class="dots" id="dots"></div>
       </div>
     </section>
@@ -188,7 +209,7 @@ h1 .amber{color:var(--accent)}
     <section class="scene" data-start="18">
       <div class="rise" style="width:100%">
         <div class="eyebrow">What Joey does</div>
-        <h1 style="font-size:clamp(1.4rem,2.9vw,3.48rem)">It works the leads you already paid for.</h1>
+        <h2 class="scene-title" style="font-size:clamp(1.4rem,2.9vw,3.48rem)">It works the leads you already paid for.</h2>
         <div class="steps">
           <div class="step"><div class="n">01</div><div class="t">Instant first touch</div><div class="d">Replies in seconds, any hour, in your voice.</div></div>
           <div class="step"><div class="n">02</div><div class="t">Qualifies</div><div class="d">Scores each lead on your rubric, not just a form.</div></div>
@@ -202,7 +223,7 @@ h1 .amber{color:var(--accent)}
     <section class="scene" data-start="30">
       <div class="rise">
         <div class="eyebrow">In your voice</div>
-        <h1 style="font-size:clamp(1.3rem,2.6vw,3.12rem)">Trained on your own writing.</h1>
+        <h2 class="scene-title" style="font-size:clamp(1.3rem,2.6vw,3.12rem)">Trained on your own writing.</h2>
       </div>
       <div class="phone">
         <div class="who">Joey &#8594; new lead</div>
@@ -215,7 +236,7 @@ h1 .amber{color:var(--accent)}
     <section class="scene" data-start="40">
       <div class="rise">
         <div class="eyebrow">Your effort</div>
-        <h1 style="font-size:clamp(1.45rem,3vw,3.6rem)">Three things from you.<br><span class="amber">Live in a week.</span></h1>
+        <h2 class="scene-title" style="font-size:clamp(1.45rem,3vw,3.6rem)">Three things from you.<br><span class="amber">Live in a week.</span></h2>
         <div class="cards3">
           <div class="mini"><span class="c">1</span> where your leads land</div>
           <div class="mini"><span class="c">2</span> your booking link</div>
@@ -229,7 +250,7 @@ h1 .amber{color:var(--accent)}
     <section class="scene" data-start="50">
       <div class="rise" style="width:100%">
         <div class="eyebrow">The result</div>
-        <h1 style="font-size:clamp(1.35rem,2.7vw,3.24rem)">The leads are paid for. Joey just converts more.</h1>
+        <h2 class="scene-title" style="font-size:clamp(1.35rem,2.7vw,3.24rem)">The leads are paid for. Joey just converts more.</h2>
         <div class="score">
           <div class="metric"><div class="l">Reply rate</div><div class="v"><span id="m1">0</span>%</div><div class="s">within seconds</div></div>
           <div class="metric"><div class="l">Cost / booked call</div><div class="v amber">$<span id="m2">0.00</span></div><div class="s">vs your ad cost per call</div></div>
@@ -269,6 +290,7 @@ h1 .amber{color:var(--accent)}
 
 <script>
 const DUR = 60; // seconds
+const REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const scenes = [...document.querySelectorAll('.scene')];
 const starts = scenes.map(s => +s.dataset.start);
 const bar = document.getElementById('bar');
@@ -283,7 +305,9 @@ for(let i=0;i<28;i++){const d=document.createElement('span');d.className='dot'+(
 function fmt(s){const m=Math.floor(s/60);const ss=Math.floor(s%60);return m+':'+String(ss).padStart(2,'0');}
 
 function animateCount(el,to,dec,dur){
-  if(!el) return; const start=performance.now();
+  if(!el) return;
+  if(REDUCE){ el.textContent = dec ? to.toFixed(dec) : Math.round(to); return; }
+  const start=performance.now();
   function step(now){const k=Math.min(1,(now-start)/dur);const e=1-Math.pow(1-k,3);const val=to*e;
     el.textContent=dec?val.toFixed(dec):Math.round(val);if(k<1)requestAnimationFrame(step);}
   requestAnimationFrame(step);
@@ -291,7 +315,9 @@ function animateCount(el,to,dec,dur){
 
 const VOICE = "Hi there, thanks for reaching out. Quick one so I point you the right way: what are you hoping to fix first, and is this a now thing or a bit later? If it is a fit, I will grab you a time this week.";
 function typeBubble(){
-  const b=document.getElementById('bubble'); if(!b) return; b.innerHTML='';
+  const b=document.getElementById('bubble'); if(!b) return;
+  if(REDUCE){ b.textContent = VOICE; return; }
+  b.innerHTML='';
   let i=0; const cur=document.createElement('span'); cur.className='cursor'; cur.textContent='|';
   b.appendChild(cur);
   const iv=setInterval(()=>{
